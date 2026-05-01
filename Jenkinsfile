@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Pull code from GitHub repository
+       
                 checkout scm
             }
         }
@@ -24,6 +24,7 @@ pipeline {
             post {
                 always {
                     junit 'java/target/surefire-reports/*.xml'
+                    echo 'Tests completed.'
                 }
             }
         }
