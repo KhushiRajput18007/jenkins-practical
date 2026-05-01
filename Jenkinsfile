@@ -24,7 +24,6 @@ pipeline {
             post {
                 always {
                     junit 'java/target/surefire-reports/*.xml'
-                    echo 'Tests completed.'
                 }
             }
         }
