@@ -10,32 +10,33 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Build the project using Maven
-                sh 'mvn clean compile'
+                dir('java') {
+                    sh 'mvn clean compile'
+                }
             }
         }
         stage('Test') {
             steps {
-                // Run test cases
-                sh 'mvn test'
+                dir('java') {
+                    sh 'mvn test'
+                }
             }
             post {
                 always {
-                    // Publish JUnit test results
-                    junit 'target/surefire-reports/*.xml'
+                    junit 'java/target/surefire-reports/*.xml'
                 }
             }
         }
         stage('Package') {
             steps {
-                // Generate build artifact (JAR)
-                sh 'mvn package'
+                dir('java') {
+                    sh 'mvn package'
+                }
             }
         }
         stage('Archive Artifact') {
             steps {
-                // Archive the generated JAR file
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'java/target/*.jar', fingerprint: true
             }
         }
     }
